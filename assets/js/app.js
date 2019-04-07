@@ -10,6 +10,7 @@ $(document).ready(function () {
             var $gifBtn = $("<button>");
             $gifBtn.attr("data-name", topics[i]);
             $gifBtn.attr("id", "gif-btn")
+            $gifBtn.attr("class", "btn btn-danger m-1 mb-3")
             $gifBtn.text(topics[i]);
             $("#gif-buttons").append($gifBtn);
         }
@@ -38,14 +39,15 @@ $(document).ready(function () {
                 if (results[i].rating !== "r") {
                     var gifDiv = $("<div>");
                     var rating = results[i].rating;
-                    var p = $("<p>").text("Rating: " + rating);
+                    var p = $("<p>").text("Rating: " + rating)
+                        .attr("class", "font-weight-bold font-italic");
                     var gifImage = $("<img>");
                     gifImage
-                        .attr("src", results[i].images.fixed_height.url)
+                        .attr("src", results[i].images.fixed_height_still.url)
                         .attr("data-still", results[i].images.fixed_height_still.url)
                         .attr("data-animate", results[i].images.fixed_height.url)
                         .attr("data-state", "still")
-                        .attr("class", "gif");
+                        .attr("class", "gif m-1");
                     gifDiv
                         .append(p)
                         .append(gifImage);
@@ -56,7 +58,7 @@ $(document).ready(function () {
     })
 
     // clicking on the gif will start it playing
-    $(".gif").on("click", function () {
+    $(document).on("click", ".gif", function () {
         var state = $(this).attr("data-state");
         if (state === "still") {
             $(this).attr("src", $(this).attr("data-animate"));
